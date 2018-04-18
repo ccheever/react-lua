@@ -12,7 +12,8 @@ do
         error('`warning(condition, format, ..)` requires a warning message argument')
       end
       if not condition then
-        print('Warning: ' .. string.format(format, ...))
+        io.stderr:write('Warning: ' .. string.format(format, ...) .. "\n")
+        io.stderr:flush()
       end
     end
   end

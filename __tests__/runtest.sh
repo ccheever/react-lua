@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-LUA_PATH="../?.lua" lua $1-test.lua
+LUA_PATH="../?.lua" luajit $1-test.lua

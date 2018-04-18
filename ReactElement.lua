@@ -72,8 +72,8 @@ end
 
 -- Create and return a new ReactElement of the given type
 -- See https://reactjs.org/docs/react-api.html#createelement
-local function createElement(type, config, ...)
-  local children = {...}
+local function createElement(type, config, children, ...)
+  local additionalChildren = {...}
   local propName
 
   -- Reserved names are extracted
@@ -102,13 +102,14 @@ local function createElement(type, config, ...)
     end
   end
 
-  if #children == 1 then
-    props.children = children[1]
-  else
+  if #additionalChildren == 0 then
     props.children = children
+  else
+    props.children = {children}
+    for i, child in ipairs(additionalChildren) do
+      table.insert(props.children, child)
+    end
   end
-
-  --props.children = children
 
   -- Resolve default props
   if type and type.defaultProps then
