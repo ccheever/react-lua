@@ -24,3 +24,38 @@ local createElementWithValidation = ReactElementValidator.createElementWithValid
 local createFactoryWithValidation = ReactElementValidator.createFactoryWithValidation
 local cloneElementWithValidation = ReactElementValidator.cloneElementWithValidation
 local ReactDebugCurrentFrame = require "ReactDebugCurrentFrame"
+
+local React = {
+    Children = {
+        map = map,
+        forEach = forEach,
+        count = count,
+        toArray = toArray,
+        only = only,
+    },
+
+    createRef = createRef,
+    Component = Component,
+    PureComponent = PureComponent,
+
+    createContext = createContext,
+    forwardRef = forwardRef,
+
+    Framgent = "REACT_FRAGMENT_TYPE",
+    StrictMode = "REACT_STRICT_MODE_TYPE",
+    unstable_AsyncMode = "REACT_ASYNC_MODE_TYPE",
+
+    createElement = __DEV__ and createElementWithValidation or createElement,
+    cloneElement = __DEV__ and cloneElementWithValidation or cloneElement,
+    createFactory = __DEV__ and createFactoryWithValidation or createFactory,
+    isValidElement = isValidElement,
+
+    __SECRET_INTERNALS = {
+        ReactCurrentOwner = ReactCurrentOwner
+    }
+
+}
+
+-- TODO: Add some stuff if __DEV__
+
+return React
