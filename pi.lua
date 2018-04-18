@@ -1,8 +1,6 @@
 local inspect = require "inspect"
 local function pi(...)
     local t = {...}
-    print(inspect.inspect(t))
-    print(#t)
     local it = {}
     local m = 0
     for i, _ in pairs(t) do
