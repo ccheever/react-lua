@@ -157,7 +157,7 @@ end
 -- the starting point
 local function cloneElement(element, config, ...)
   local children = {...}
-  invariant((not (element == nil)), 'React.cloneELement(...): The argument must be a React element, but you passed %s')
+  invariant((not (element == nil)), 'React.cloneElement(...): The argument must be a React element, but you passed %s')
 
   local propName
 
