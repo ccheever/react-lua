@@ -8,11 +8,11 @@ local function getComponentName(fiber)
   end
   if t == "REACT_FRAGMENT_TYPE" then
     return "ReactFragment"
-  else if t == "REACT_PORTAL_TYPE" then
+  elseif t == "REACT_PORTAL_TYPE" then
     return "ReactPortal"
-  else if t == "REACT_CALL_TYPE" then
+  elseif t == "REACT_CALL_TYPE" then
     return "ReactCall"
-  else if t == "REACT_RETURN_TYPE" then
+  elseif t == "REACT_RETURN_TYPE" then
     return "ReactReturn"
   end
 

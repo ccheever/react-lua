@@ -12,6 +12,12 @@ local lowPriorityWarning = require "lowPriorityWarning"
 local isValidElementType = require "isValidElementType"
 local getComponentName = require "getComponentName"
 
-error("TODO: NotImplemented")
+-- TODO: Implement this part of the port
+-- For now, we'll just use the ones without validation
 
-return "TODO_NOT_IMPLEMENTED"
+local ReactElement = require "ReactElement"
+return {
+    createElementWithValidation = ReactElement.createElement,
+    createFactoryWithValidation = ReactElement.createFactory,
+    cloneElementWithValidation = ReactElement.cloneElement
+}

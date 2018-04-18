@@ -1,4 +1,4 @@
-return function isValidElementType(t)
+local function isValidElementType(t)
   return (
     type(t) == "string" or
     (type(t) == "table" and (
@@ -8,4 +8,4 @@ return function isValidElementType(t)
     )
   ))
 end
-
+return isValidElementType
