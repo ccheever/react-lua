@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+LUA_PATH="./src/?.lua;./src/shared/?.lua;./src/react/?.lua;./src/reconciler/?.lua;$LUA_PATH" luajit $*
