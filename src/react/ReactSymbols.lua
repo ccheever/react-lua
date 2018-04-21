@@ -15,5 +15,10 @@ return {
       return maybeIterator
     end
     return nil
-  end
+  end,
+
+  REACT_ELEMENT_TYPE = "REACT_ELEMENT_TYPE",
+  REACT_FRAGMENT_TYPE = "REACT_FRAGMENT_TYPE",
+  REACT_PORTAL_TYPE = "REACT_PORTAL_TYPE"
+
 }
