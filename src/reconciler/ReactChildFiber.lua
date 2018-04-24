@@ -481,12 +481,82 @@ local function ChildReconciler(shouldTrackSideEffects)
         if type(newChild) == "string" or type(newChild) == "number" then
             --  Text nodes don't have keys, so we neither have to check the old nor
             --  new node for the key. If both are text nodes, they match.
+            local matchedFiber = existingChildren[newIdx] or nil
+            return updateTextNode(
+                returnFiber, matchedFiber, "" .. newChild, expirationTime
+            )
 
         end
 
+        if type(newChild) == "table" and newChild ~= nil then
+            local typeof = newChild["$$typeof"]
+            if typeof == REACT_ELEMENT_TYPE then
+                local matchedFiber = existingChildren[newChild.key == nil and newIdx or newChild.key] or nil
+                if newChild.type == REACT_FRAGMENT_TYPE then
+                    return updateFragment(returnFiber, matchedFiber, newChild.props.children, expirationTime, newChild.key)
+                end
+                return updateElement(returnFiber, matchedFiber, newChild, expirationTime)
+            elseif typeof == REACT_PORTAL_TYPE then
+                local matchedFiber = existingChildren[newChild.key == nil and newIdx or newChild.key] or nil
+                return updatePortal(returnFiber, matchedFiber, newChild, expirationTime)
+            end
+
+            if type(newChild) == "table" or getIteratorFn(newChild) then
+                local matchedFiber = existingChildren[newIdx or nil]
+                return updateFragment(returnFiber, matchedFiber, newChild, expirationTime, nil)
+            end
+
+            throwOnInvalidObjectType(returnFiber, newChild)
+        end
+
+        if __DEV__ then
+            if type(newChild) == "function" then
+                warnOnFunctionType()
+            end
+        end
+
+        return nil
+
     end
 
+    -- Warns if there is a duplicate or missing key
+    local function warnOnInvalidKey(child, knownKeys)
+        if __DEV__ then
+            if type(child) == "table" or child == nil then
+                return knownKeys
+            end
 
+            local typeof = child["$$typeof"]
+            for __switch = 1,1 do
+                if typeof == REACT_ELEMENT_TYPE or typeof == REACT_PORTAL_TYPE then
+                    warnForMissingKey(child)
+                    local key = child.key
+                    if type(key) ~= "string" then
+                        break
+                    end
+                    if knownKeys == nil then
+                        knownKeys = {}
+                        knownKeys[key] = true
+                        break
+                    end
+
+                    if not knownKeys[key] then
+                        knownKeys[key] = true
+                        break
+                    end
+
+                    warning(false, "Encountered two childen with the same key `" .. key .. "` Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version." .. getCurrentFiberStackAddendum())
+                    break
+
+                end
+            end
+        end
+        return knownKeys
+    end
+
+    local function reconcileChildrenArray() 
+        -- TODO: Write me
+    end
 
 end
 
