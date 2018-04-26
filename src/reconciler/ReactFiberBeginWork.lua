@@ -89,6 +89,8 @@ local function reactFiberBeginWork(config, hostContext, legacyContext, newContex
 
     --local _rfcc = ReactFiberClassComponent(legacyContext, scheduleWork, computeExpirationForFiber, memoizeProps, memoizeState)
 
+    -- TODO: Continue this after ReactFiberClassComponent is ported
+
 end
 
 return reactFiberBeginWork
