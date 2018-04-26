@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+./run-luajit ./src/__tests__/$1-test.lua
