@@ -9,3 +9,4 @@ local debugRenderPhaseSideEffectsForStrictMode = ReactFeatureFlags.debugRenderPh
 local warnAboutDeprecatedLifecycles = ReactFeatureFlags.warnAboutDeprecatedLifecycles
 
 local ReactStrictModeWarnings = require "ReactStrictModeWarnings"
+local reflection = require "reflection"
