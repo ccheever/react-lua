@@ -36,7 +36,7 @@ local getComponentName = require "getComponentName"
 
 local ReactDebugCurrentFiber = require "ReactDebugCurrentFiber"
 local ReactDebugFiberPerf = require "ReactDebugFiberPerf"
---local cancelWorkTimer = ReactDebugFiberPerf.cancelWorkTimer
+local cancelWorkTimer = ReactDebugFiberPerf.cancelWorkTimer
 
 local ReactFiberClassComponent = require "ReactFiberClassComponent"
 
