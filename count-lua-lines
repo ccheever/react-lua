@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-find src/ -iname '*.lua' | xargs wc -l
+find src -name '*.lua' | xargs wc -l
