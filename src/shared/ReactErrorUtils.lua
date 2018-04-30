@@ -34,8 +34,49 @@ local ReactErrorUtils = {
   -- @param {*} context The context to use when calling the function
   -- @param {...*} args Arguments for function
   invokeGuardedCallbackAndCatchFirstError = function (...)
-    ReactErrorUtils.invokeGuardedCallback
+    ReactErrorUtils.invokeGuardedCallback(...)
+    if ReactErrorUtils.hasCaughtError() then
+      local error_ = ReactErrorUtils.clearCaughtError()
+      if not ReactErrorUtils._hasRethrowError then
+        ReactErrorUtils._hasRethrowError = true
+        ReactErrorUtils._rethrowError = error_
+      end
+    end
+  end,
+
+  -- During execution of guarded functions we will capture the first error which
+  -- we will rethrow to be handled by the top level error handler.
+  rethrowCaughtError = function (...)
+    return rethrowCaughtError(ReactErrorUtils, ...)
+  end,
+
+  hasCaughtError = function ()
+    return ReactErrorUtils._hasCaughtError
+  end,
+
+  clearCaughtError = function ()
+    if ReactErrorUtils._hasCaughtError then
+      local error_ = ReactErrorUtils._caughtError
+      ReactErrorUtils._caughtError = nil
+      ReactErrorUtils._hasCaughtError = false
+      return error_
+    else
+      invariant(
+        false,
+        "clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue."
+      )
+    end
   end
 
-
 }
+
+local function rethrowCaughtError()
+  if ReactErrorUtils._hasRethrowError then
+    local error_ = ReactErrorUtils._rethrowError
+    ReactErrorUtils._rethrowError = nil
+    ReactErrorUtils._hasRethrowError = false
+    error(error_)
+  end
+end
+
+return ReactErrorUtils
