@@ -54,9 +54,9 @@ local function ReactFiberCompleteWork(
     local getHostContext = hostContext.getHostContext
     local popHostContainer = hostContext.popHostContainer
 
-    local popContextProvider = legacyContext.popLegacyContextProvider
-    local popTopLevelContextObject = legacyContext.popTopLevelLegacyContextObject
-    
+    local popLegacyContextProvider = legacyContext.popContextProvider
+    local popTopLevelLegacyContextObject = legacyContext.popTopLevelContextObject
+
     local popProvider = newContext.popProvider
 
     local prepareToHydrateHostInstance = hydrationContext.prepareToHydrateHostInstance
@@ -424,7 +424,7 @@ local function ReactFiberCompleteWork(
                 return nil
             elseif tag == HostRoot then
                 popHostContainer(workInProgress)
-                popTopLevelContextObject(workInProgress)
+                popTopLevelLegacyContextObject(workInProgress)
                 local fiberRoot = workInProgress.stateNode
                 if fiberRoot.pendingContext then
                     fiberRoot.context = fiberRoot.pendingContext
